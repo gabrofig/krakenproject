@@ -6,10 +6,10 @@ A simple project to showcase BTCUSD maximum close values in a specific period of
 
 The insert.py code starts by connecting with Kraken and retrieving BTCUSD values OLHC hourly
 
-'''
+```
 api = krakenex.API("<KrakenAPI>")
 k = KrakenAPI(api)
-'''
+```
 
 #retrieving BTC OLHC
 ohlc = k.get_ohlc_data('BTCUSD', interval=60, ascending = False)

@@ -9,18 +9,21 @@ The insert.py code starts by connecting with Kraken and retrieving BTCUSD values
 ```
 api = krakenex.API("<KrakenAPI>")
 k = KrakenAPI(api)
-```
 
-#retrieving BTC OLHC
 ohlc = k.get_ohlc_data('BTCUSD', interval=60, ascending = False)
+```
+Next, the information is converted to a DataFrame to be manipulated with Pandas.
+The code for the time is converted to timestamp for a better understanding using ```datetime```
 
-#converting to dataframe to manipulate data
+```
 df = pd.DataFrame(ohlc[0],columns = ['time','open','high','low','close','vwap','volume','count'])
 df.index = df.index.date
 date_time_begin = datetime(2024, 1, 1, 12, 0, 0)  # Year, Month, Day, Hour, Minute, Second
 date_time_end = datetime(2024, 8, 19, 12, 0, 0)
 timestamp_begin = int(time.mktime(date_time_begin.timetuple()))
 timestamp_end = int(time.mktime(date_time_end.timetuple()))
+```
+
 
 #transform data
 filtered_df = df[(df['time'] >= timestamp_begin) & (df['time'] <= timestamp_end)]

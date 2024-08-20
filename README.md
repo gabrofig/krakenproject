@@ -36,3 +36,39 @@ After that, the data in converted to a dictionary so it can input in our MongoDB
 btc = filtered_df.to_dict(orient='records')
 btc = {str(item['time']): item for item in btc} #use as index
 ```
+
+## Inserting information in the MongoDB database
+
+The connection is stablished to MongoDB in ```pymongo_get_database.py```
+
+```
+from pymongo import MongoClient
+
+def get_database():
+ 
+   # Provide the mongodb atlas url to connect python to mongodb using pymongo
+   CONNECTION_STRING = "<MongoDB API>"
+ 
+   # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
+   client = MongoClient(CONNECTION_STRING)
+ 
+   # Create the database for our example (we will use the same database throughout the tutorial
+   return client['kraken']
+  
+# This is added so that many files can reuse the function get_database()
+if __name__ == "__main__":   
+  
+   # Get the database
+   dbname = get_database()
+
+```
+
+With this, back in the ```insert.py```, the retrieved data is inserted by
+```
+dbname = get_database()
+collection_name = dbname["btc"]
+for i in btc:
+    #print(btc[i])
+    collection_name.insert_many([btc[i]])
+```
+

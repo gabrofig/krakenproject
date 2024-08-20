@@ -72,3 +72,8 @@ for i in btc:
     collection_name.insert_many([btc[i]])
 ```
 
+With that, the filtered desired information is retrieved from Kraken and stored in MongoDB.
+
+![image](https://github.com/user-attachments/assets/0918999d-2072-47ca-bd73-edb032f4610c)
+
+
